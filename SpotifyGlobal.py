@@ -35,7 +35,7 @@ def main():
 
     # Check if options.txt exists
     if os.path.exists(options_file) is True:
-        # If yes open options.txt and read contents to a list
+        # If yes, open options.txt and read contents to a list
         with open(options_file, "r") as file:
             file_reader = file.readlines()
         options_exists = True
@@ -43,7 +43,8 @@ def main():
         options_exists = False
 
     if options_exists:
-        # Try to find user path in options
+        # Read options for path
+        print("Found options.txt, looking for \"path=\"\n")
         config = "path="
         for lines in file_reader:
             if config in lines:
@@ -52,12 +53,20 @@ def main():
         user_path = value
         user_inputed_path = False
     else:
-        # If no options.txt, input user for path
-        user_path = input("Type your Spotify path\n\
+        # If no options, try Spotify default path
+        user_directory = os.path.expanduser( '~' )                                      # Open C:\Users\~\
+        user_path = os.path.join(user_directory, 'AppData\Roaming\Spotify\Spotify.exe') # Add remaining path
+        if os.path.exists(user_path) is True: 
+            # File found
+            print("Spotify found on default installation path.\n")
+            user_inputed_path = True # Pretend user inputed to save default path in options.txt
+        else:
+            # If no options and Spotify not found, input user for path
+            user_path = input("Type your Spotify path\n\
 Paths should look something like:\n\
 C:\\Users\\YOU\\AppData\\Roaming\\Spotify\\Spotify.exe\n")
-        print()
-        user_inputed_path = True
+            print()
+            user_inputed_path = True
 
     try:
         # Try to open Spotify        
@@ -65,7 +74,7 @@ C:\\Users\\YOU\\AppData\\Roaming\\Spotify\\Spotify.exe\n")
         sp = sp["Chrome_Widget_Win0"]
     except:
         # Error message
-        print("\nCouldn't open Spotify.\n\
+        print("Couldn't open Spotify.\n\
 Either PATH typed is wrong or\n\
 options.txt has the wrong PATH.\n\n\
 Try again")
@@ -110,8 +119,8 @@ Try again")
     keyboard.add_hotkey(hk['Like='], lambda: sp.send_keystrokes('%+{B}'), time.sleep(1))
 
     # Program running message
-    print("\nAplication is up and running, keep this window open.\n\n\
-To quit application press SHIFT + 9 or close this window.\n\
+    print(f"\nApplication is up and running, keep this window open.\n\n\
+To quit application press {hk['Quit=']} or close this window.\n\
         Spotify will stay open.")
 
     # Keep program running on background until quit hotkey
