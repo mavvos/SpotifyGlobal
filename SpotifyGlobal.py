@@ -1,6 +1,6 @@
 # Spotify controlled by Global Hotkeys.
 # Registers key presses with 'keyboard' and uses 'pywinauto'
-# to send equivalent hotkey to Spotify application.
+# to send equivalent hotkey command to Spotify application.
 
 import os
 import sys
@@ -9,7 +9,8 @@ from pywinauto.application import Application
 import keyboard
 
 
-# Default hotkeys       # If you want to change hotkeys, please refer to options.txt
+# If you want to change hotkeys, please refer to options.txt
+# Default hotkeys
 default_hotkeys =[
     "VolUp=shift+8",
     "VolDown=shift+2",
@@ -29,9 +30,15 @@ def main():
     # opened instance, so on this program's execution it also starts Spotify.
     # ¯\_(ツ)_/¯
 
-    # Set path for options.txt file along SpotifyGlobal
-    bundle_dir = os.path.abspath(os.path.dirname(__file__))
-    options_file = os.path.join(bundle_dir, "options.txt")
+    # Determine the correct path to write the file depending on how it's running
+    if getattr(sys, 'frozen', False):  # Check if script is bundled as executable
+        base_dir = os.path.split(sys.executable)[0]
+        print("SpotifyGlobal: RUNNING AS EXECUTABLE")
+    else:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        print("SpotifyGlobal: RUNNING AS PYTHON SCRIPT")
+
+    options_file = os.path.join(base_dir, "options.txt")
 
     # Check if options.txt exists
     if os.path.exists(options_file) is True:
@@ -54,8 +61,8 @@ def main():
         user_inputed_path = False
     else:
         # If no options, try Spotify default path
-        user_directory = os.path.expanduser( '~' )                                      # Open C:\Users\~\
-        user_path = os.path.join(user_directory, 'AppData\Roaming\Spotify\Spotify.exe') # Add remaining path
+        user_directory = os.path.expanduser( '~' ) # C:\Users\~\
+        user_path = os.path.join(user_directory, 'AppData\Roaming\Spotify\Spotify.exe')
         if os.path.exists(user_path) is True: 
             # File found
             print("Spotify found on default installation path.\n")
