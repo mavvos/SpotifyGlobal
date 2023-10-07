@@ -1,12 +1,13 @@
 <h1 align="center">🎵 Spotify Global 🌐</h1>
 <div align="center">
-Control Spotify from anywhere with Global Hotkeys! No need for the window to be in focus, working for all users (free & premium).
   
-  <a href="https://opensource.org/licenses/MIT">![License](https://img.shields.io/badge/License-MIT-red)</a>
+  <a href="https://github.com/mavvos/SpotifyGlobal/blob/main/LICENSE">![License](https://img.shields.io/badge/License-MIT-red)</a>
   <a href="https://github.com/mavvos/SpotifyGlobal/releases/latest">![Demo](https://img.shields.io/badge/Download-Latest-green)</a>
 
+  Control Spotify from anywhere with Global Hotkeys!\
+  No need for the window to be in focus, working for all users (free & premium)
+
 </div>
-<br>
 <hr>
 <h3>🔨 How It Works</h3>
 This script works registering key presses with <i>keyboard</i> and using <i>pywinauto</i> to send the equivalent hotkey command to the Spotify application.
@@ -21,10 +22,7 @@ If you don't have python installed, download the .exe (executable version) and r
 
 If you are trying to run the python script version, you'll need to install the modules in requirements.txt
 ```
-pip install keyboard
-```
-```
-pip install pywinauto
+pip install keyboard pywinauto
 ```
 
 
@@ -36,21 +34,7 @@ Which by default is located at:
 ```
 C:\Users\~\AppData\Roaming\Spotify\Spotify.exe
 ```
-After that, a file (options.txt) is created containing your default path and your hotkeys, so you don't need to keep retyping.
-
-If you wish to <b>customise your hotkeys</b>, simply locate your options.txt and alter the value that follows the "="
-
-A normal hotkey looks something like this:
-```
-VolDown=shift+2
-```
-
-Keys are written as you expect them to be, in plain english, so to change the hotkey above, you could put something like:
-```
-VolDown=alt+shift+p
-```
-
-That way, to send the command Volume Down to Spotify, you would have to press simultaneously <i>ALT SHIFT P</i>
+After that, <b>a file (options.txt) is created containing your default path and your hotkeys</b>, so you don't need to keep retyping.
 
 #
 <h3>🎹 Default Controls</h3>
@@ -67,6 +51,22 @@ SHIFT + 3   = Go forward 5 seconds
 SHIFT + 7   = Like/Dislike Track
 SHIFT + 9   = Quit Script
 ```
+
+#
+<h3>⌨ Custom Controls</h3>
+If you wish to <b>customise your hotkeys</b>, simply locate your options.txt and alter the value that follows the "="
+
+A normal hotkey looks something like this:
+```
+VolDown=shift+2
+```
+
+Keys are written as you expect them to be, in plain english, so to change the hotkey above, you could put something like:
+```
+VolDown=alt+shift+p
+```
+
+That way, to send the command Volume Down to Spotify, you would have to press simultaneously <i>ALT SHIFT P</i>
 
 #
 <h3>🐜 Known Problems and Bugs 🦟</h3>
