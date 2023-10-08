@@ -54,7 +54,7 @@ SHIFT + 9   = Quit Script
 
 #
 <h3>⌨ Custom Controls</h3>
-If you wish to <b>customise your hotkeys</b>, simply locate your options.txt and alter the value that follows the "="
+If you wish to <b>customize your hotkeys</b>, simply locate your options.txt and alter the value that follows the "="
 
 A normal hotkey looks something like this:
 ```
@@ -71,11 +71,12 @@ That way, to send the command Volume Down to Spotify, you would have to press si
 #
 <h3>🐜 Known Problems and Bugs 🦟</h3>
 <ul>
-<li><b>Spotify needs to be closed</b> when you run this script. The script takes care of oppening Spotify for you, in fact it <b>has</b> to open Spotify for it to work, if your Spotify is already running when you try oppening this, the script will just crash and not work.</li>
+<li><b>Spotify needs to be closed</b> when you run this script. The script takes care of opening Spotify for you, in fact it <b>has</b> to open Spotify for it to work, if your Spotify is already running when you try opening this, the script will just crash and not work.</li>
 <li>Script doesn't seem to work with the Microsoft Store version of Spotify (because you can't access Spotify's path folder, lol).</li>
 <li>If you spam press hotkeys you can get stuck in a loop where the commands keep repeating, to fix this restart application.</li>
-<li>If you delete any line from options.txt after your first launch, the script will crash, to fix this just delete the options.txt file alltogether and a new one will be created for you on next launch.</li>
+<li>If you delete any line from options.txt after your first launch, the script will crash, to fix this just delete the options.txt file altogether and a new one will be created for you on next launch.</li>
 <li>Spotify needs to be open as a window for the script to work, if Spotify is minimized it will keep popping up when you press a hotkey, to fix this just let Spotify's window open and click away to your other programs.</li>
 <li>Sometimes the message about app running takes longer than normal to appear.</li>
 <li>If you are not on Windows, there's a high chance the script won't work for you, because it uses the library <i>pywinauto</i>.</li>
+<li>Some hotkey combinations have more trouble than others when it comes to being registered, this has to do with the <i>keyboard</i> module.</li>
 </ul>
