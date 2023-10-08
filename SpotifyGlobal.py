@@ -43,7 +43,7 @@ def main():
     options_file = base_dir.joinpath("options.txt")
 
     # Check if options.txt exists
-    if options_file.exists:
+    if options_file.exists():
         # If yes, open options.txt and read contents to a list
         with open(options_file, "r") as file:
             file_reader = file.readlines()
@@ -67,7 +67,7 @@ def main():
         user_path = user_directory.joinpath(
             "AppData", "Roaming", "Spotify", "Spotify.exe"
         )
-        if user_path.exists:
+        if user_path.exists():
             # File found
             print("Spotify found on default installation path.\n")
             user_inputed_path = (
