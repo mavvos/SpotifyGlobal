@@ -90,7 +90,6 @@ Try again"
         )
         time.sleep(4)
         sys.exit(1)
-    print(user_path)
 
     keyboard.add_hotkey(
         diz["VolUp"], lambda: sp.send_keystrokes("^{UP}"), time.sleep(1)
