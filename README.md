@@ -34,11 +34,11 @@ Which by default is located at:
 ```
 C:\Users\~\AppData\Roaming\Spotify\Spotify.exe
 ```
-After that, <b>a file (options.txt) is created containing your default path and your hotkeys</b>, so you don't need to keep retyping.
+After that, <b>a file (options.json) is created containing your default path and your hotkeys</b>, so you don't need to keep retyping.
 
 #
 <h3>🎹 Default Controls</h3>
-<h6>Hotkey in Script = Expected Command</h6>
+<h6>Hotkey in Script: Expected Command</h6>
 
 ```
 SHIFT + 8   = Volume Up
@@ -58,12 +58,12 @@ If you wish to <b>customize your hotkeys</b>, simply locate your options.txt and
 
 A normal hotkey looks something like this:
 ```
-VolDown=shift+2
+{VolDown: shift+2}
 ```
 
 Keys are written as you expect them to be, in plain english, so to change the hotkey above, you could put something like:
 ```
-VolDown=alt+shift+p
+VolDown: alt+shift+p
 ```
 
 That way, to send the command Volume Down to Spotify, you would have to press simultaneously <i>ALT SHIFT P</i>
