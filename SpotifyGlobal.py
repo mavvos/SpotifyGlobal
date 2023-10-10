@@ -11,7 +11,7 @@ from pywinauto.application import Application
 import keyboard
 
 
-hotkey_commands = [
+HOTKEY_COMMANDS = [
     "VolUp",
     "VolDown",
     "PrevTrack",
@@ -22,7 +22,8 @@ hotkey_commands = [
     "Like",
     "Quit",
 ]
-default_hotkeys = [
+
+DEFAULT_HOTKEYS = [
     "shift+8",
     "shift+2",
     "shift+4",
