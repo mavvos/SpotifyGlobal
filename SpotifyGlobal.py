@@ -57,7 +57,7 @@ def main():
             diz: dict = json.load(file)
         user_path = Path(diz["Path"])
     else:
-        diz = dict(zip(hotkey_commands, default_hotkeys))
+        diz = dict(zip(HOTKEY_COMMANDS, DEFAULT_HOTKEYS))
         user_directory = Path.home()  
         user_path = user_directory.joinpath(
             "AppData", "Roaming", "Spotify", "Spotify.exe"
