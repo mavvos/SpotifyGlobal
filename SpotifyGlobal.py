@@ -67,7 +67,7 @@ def main():
 
     if options_exists:
         print("Options.txt found")
-        config = "path=" # Search path in options
+        config = "path="  # Search path in options
         for lines in file_reader:
             if config in lines:
                 value = lines[len(config) : -1]
@@ -82,7 +82,7 @@ def main():
         )
         if user_path.exists():
             print("Spotify found on default installation path.\n")
-            user_inputted_path = (True)
+            user_inputted_path = True
         else:
             # If both fail, input user for path
             user_path = input(
@@ -107,11 +107,11 @@ Try again"
         time.sleep(4)
         sys.exit(1)
 
-    if user_inputted_path: # Save path in options.txt
+    if user_inputted_path:  # Save path in options.txt
         with open(options_file, "a") as file:
             file.write(f"path={user_path}\n")
 
-    if not options_exists: # Add default hotkeys to options.txt
+    if not options_exists:  # Add default hotkeys to options.txt
         with open(options_file, "a") as file:
             for i in range(HOTKEY_AMOUNT):
                 file.write(f"{HOTKEY_COMMANDS[i]}={DEFAULT_HOTKEYS[i]}\n")
@@ -129,13 +129,27 @@ Try again"
                 hk.update({config: value})
                 break
 
-    keyboard.add_hotkey(hk["VolUp="], lambda: sp.send_keystrokes("^{UP}"), time.sleep(1))
-    keyboard.add_hotkey(hk["VolDown="], lambda: sp.send_keystrokes("^{DOWN}"), time.sleep(1))
-    keyboard.add_hotkey(hk["PrevTrack="], lambda: sp.send_keystrokes("^{LEFT}"), time.sleep(1))
-    keyboard.add_hotkey(hk["NextTrack="], lambda: sp.send_keystrokes("^{RIGHT}"), time.sleep(1))
-    keyboard.add_hotkey(hk["PlayPause="], lambda: sp.send_keystrokes("{SPACE}"), time.sleep(1))
-    keyboard.add_hotkey(hk["Back5s="], lambda: sp.send_keystrokes("+{LEFT}"), time.sleep(1))
-    keyboard.add_hotkey(hk["Forward5s="], lambda: sp.send_keystrokes("+{RIGHT}"), time.sleep(1))
+    keyboard.add_hotkey(
+        hk["VolUp="], lambda: sp.send_keystrokes("^{UP}"), time.sleep(1)
+    )
+    keyboard.add_hotkey(
+        hk["VolDown="], lambda: sp.send_keystrokes("^{DOWN}"), time.sleep(1)
+    )
+    keyboard.add_hotkey(
+        hk["PrevTrack="], lambda: sp.send_keystrokes("^{LEFT}"), time.sleep(1)
+    )
+    keyboard.add_hotkey(
+        hk["NextTrack="], lambda: sp.send_keystrokes("^{RIGHT}"), time.sleep(1)
+    )
+    keyboard.add_hotkey(
+        hk["PlayPause="], lambda: sp.send_keystrokes("{SPACE}"), time.sleep(1)
+    )
+    keyboard.add_hotkey(
+        hk["Back5s="], lambda: sp.send_keystrokes("+{LEFT}"), time.sleep(1)
+    )
+    keyboard.add_hotkey(
+        hk["Forward5s="], lambda: sp.send_keystrokes("+{RIGHT}"), time.sleep(1)
+    )
     keyboard.add_hotkey(hk["Like="], lambda: sp.send_keystrokes("%+{B}"), time.sleep(1))
 
     print(
@@ -144,7 +158,7 @@ To quit application press {hk['Quit=']} or close this window.\n\
         Spotify will stay open."
     )
 
-    keyboard.wait(hotkey=hk["Quit="]) # Keep running until key
+    keyboard.wait(hotkey=hk["Quit="])  # Keep running until key
 
 
 main()
