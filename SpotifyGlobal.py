@@ -59,14 +59,13 @@ def main():
     file_reader = []
 
     if options_file.exists():
-        with open(options_file, "r") as file:
+        with open(options_file, "r", encoding="utf-8") as file:
             file_reader = file.readlines()
         options_exists = True
     else:
         options_exists = False
 
     if options_exists:
-        print("Options.txt found")
         config = "path="  # Search path in options
         for lines in file_reader:
             if config in lines:
@@ -88,9 +87,8 @@ def main():
             user_path = input(
                 "Type your Spotify path\n\
 Paths should look something like:\n\
-C:\\Users\\YOU\\AppData\\Roaming\\Spotify\\Spotify.exe\n"
+C:\\Users\\YOU\\AppData\\Roaming\\Spotify\\Spotify.exe\n\n"
             )
-            print()
             user_inputted_path = True
 
     try:
@@ -108,11 +106,11 @@ Try again"
         sys.exit(1)
 
     if user_inputted_path:  # Save path in options.txt
-        with open(options_file, "a") as file:
+        with open(options_file, "a", encoding="utf-8") as file:
             file.write(f"path={user_path}\n")
 
     if not options_exists:  # Add default hotkeys to options.txt
-        with open(options_file, "a") as file:
+        with open(options_file, "a", encoding="utf-8") as file:
             for i in range(HOTKEY_AMOUNT):
                 file.write(f"{HOTKEY_COMMANDS[i]}={DEFAULT_HOTKEYS[i]}\n")
 
@@ -129,28 +127,14 @@ Try again"
                 hk.update({config: value})
                 break
 
-    keyboard.add_hotkey(
-        hk["VolUp="], lambda: sp.send_keystrokes("^{UP}"), time.sleep(1)
-    )
-    keyboard.add_hotkey(
-        hk["VolDown="], lambda: sp.send_keystrokes("^{DOWN}"), time.sleep(1)
-    )
-    keyboard.add_hotkey(
-        hk["PrevTrack="], lambda: sp.send_keystrokes("^{LEFT}"), time.sleep(1)
-    )
-    keyboard.add_hotkey(
-        hk["NextTrack="], lambda: sp.send_keystrokes("^{RIGHT}"), time.sleep(1)
-    )
-    keyboard.add_hotkey(
-        hk["PlayPause="], lambda: sp.send_keystrokes("{SPACE}"), time.sleep(1)
-    )
-    keyboard.add_hotkey(
-        hk["Back5s="], lambda: sp.send_keystrokes("+{LEFT}"), time.sleep(1)
-    )
-    keyboard.add_hotkey(
-        hk["Forward5s="], lambda: sp.send_keystrokes("+{RIGHT}"), time.sleep(1)
-    )
-    keyboard.add_hotkey(hk["Like="], lambda: sp.send_keystrokes("%+{B}"), time.sleep(1))
+    keyboard.add_hotkey(hk["VolUp="], lambda: sp.send_keystrokes("^{UP}"))
+    keyboard.add_hotkey(hk["VolDown="], lambda: sp.send_keystrokes("^{DOWN}"))
+    keyboard.add_hotkey(hk["PrevTrack="], lambda: sp.send_keystrokes("^{LEFT}"))
+    keyboard.add_hotkey(hk["NextTrack="], lambda: sp.send_keystrokes("^{RIGHT}"))
+    keyboard.add_hotkey(hk["PlayPause="], lambda: sp.send_keystrokes("{SPACE}"))
+    keyboard.add_hotkey(hk["Back5s="], lambda: sp.send_keystrokes("+{LEFT}"))
+    keyboard.add_hotkey(hk["Forward5s="], lambda: sp.send_keystrokes("+{RIGHT}"))
+    keyboard.add_hotkey(hk["Like="], lambda: sp.send_keystrokes("%+{B}"))
 
     print(
         f"\nApplication is up and running, keep this window open.\n\n\
