@@ -59,35 +59,29 @@ def main():
     if options_file.exists():
         with open(options_file, "r", encoding="utf-8") as file:
             file_reader = file.readlines()
-        options_exists = True
-    else:
-        options_exists = False
-
-    if options_exists:
         user_path = search_file("path=", file_reader)
-        user_inputted_path = False
+        first_run = False
     else:
         # Try Spotify default path
+        first_run = True
         user_directory = Path.home()  # C:\Users\~\
         user_path = user_directory.joinpath(
             "AppData", "Roaming", "Spotify", "Spotify.exe"
         )
         if user_path.exists():
             print("Spotify found on default installation path.\n")
-            user_inputted_path = True
         else:
-            # If both fail, input user for path
+            # If all fails, input user for path
             user_path = input(
                 "Type your Spotify path\n\
 Paths should look something like:\n\
 C:\\Users\\YOU\\AppData\\Roaming\\Spotify\\Spotify.exe\n\n"
             )
-            user_inputted_path = True
 
     try:
         # Try to open Spotify
         sp = Application().start(rf"{user_path}")
-        sp = sp["Chrome_Widget_Win0"]
+        sp = sp["Chrome_Widget_Win0"]  # Spotify's window name
     except:
         print(
             "Couldn't open Spotify.\n\
@@ -98,19 +92,15 @@ Try again"
         time.sleep(4)
         sys.exit(1)
 
-    if user_inputted_path:  # Save path in options.txt
+    if first_run:  # Save user path and default hotkeys in options.txt
         with open(options_file, "a", encoding="utf-8") as file:
             file.write(f"path={user_path}\n")
-
-    if not options_exists:  # Add default hotkeys to options.txt
-        with open(options_file, "a", encoding="utf-8") as file:
             for key, default in zip(HOTKEY_COMMANDS, DEFAULT_HOTKEYS):
                 file.write(f"{key}={default}\n")
-                # Append to file_reader to avoid unnecessary reading
+                # Append to file_reader to avoid redundancy.
                 file_reader.append(f"{key}={default}\n")
 
-    # Read options.txt for hotkeys and append key:value to hk{}
-    hk = {}
+    hk = {}  # Keys to use
     for key in HOTKEY_COMMANDS:
         config = f"{key}="
         value = search_file(config, file_reader)
