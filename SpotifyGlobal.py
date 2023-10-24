@@ -36,8 +36,6 @@ DEFAULT_HOTKEYS = [
     "shift+9",
 ]
 
-HOTKEY_AMOUNT = len(HOTKEY_COMMANDS)
-
 
 def main():
     """
@@ -66,12 +64,7 @@ def main():
         options_exists = False
 
     if options_exists:
-        config = "path="  # Search path in options
-        for lines in file_reader:
-            if config in lines:
-                value = lines[len(config) : -1]
-                break
-        user_path = value
+        user_path = search_file("path=", file_reader)
         user_inputted_path = False
     else:
         # Try Spotify default path
@@ -111,21 +104,18 @@ Try again"
 
     if not options_exists:  # Add default hotkeys to options.txt
         with open(options_file, "a", encoding="utf-8") as file:
-            for i in range(HOTKEY_AMOUNT):
-                file.write(f"{HOTKEY_COMMANDS[i]}={DEFAULT_HOTKEYS[i]}\n")
-
-                # Append to file_reader to avoid rereading
-                file_reader.append(f"{HOTKEY_COMMANDS[i]}={DEFAULT_HOTKEYS[i]}\n")
+            for key, default in zip(HOTKEY_COMMANDS, DEFAULT_HOTKEYS):
+                file.write(f"{key}={default}\n")
+                # Append to file_reader to avoid unnecessary reading
+                file_reader.append(f"{key}={default}\n")
 
     # Read options.txt for hotkeys and append key:value to hk{}
     hk = {}
-    for i in range(HOTKEY_AMOUNT):
-        config = f"{HOTKEY_COMMANDS[i]}="
-        for lines in file_reader:
-            if config in lines:
-                value = lines[len(config) : -1]
-                hk.update({config: value})
-                break
+    for key in HOTKEY_COMMANDS:
+        config = f"{key}="
+        value = search_file(config, file_reader)
+        if value is not None:
+            hk[config] = value
 
     keyboard.add_hotkey(hk["VolUp="], lambda: sp.send_keystrokes("^{UP}"))
     keyboard.add_hotkey(hk["VolDown="], lambda: sp.send_keystrokes("^{DOWN}"))
@@ -143,6 +133,18 @@ To quit application press {hk['Quit=']} or close this window.\n\
     )
 
     keyboard.wait(hotkey=hk["Quit="])  # Keep running until key
+
+
+def search_file(config, file_list):
+    """Config is what you're looking for,
+    file_list is list to search on.
+    Returns value found on file.
+    """
+    for lines in file_list:
+        if config in lines:
+            value = lines.replace(config, "")  # Remove config
+            return value.rstrip("\n")  # Remove EOL
+    return None
 
 
 if __name__ == "__main__":
