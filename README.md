@@ -10,46 +10,46 @@
 </div>
 <hr>
 <h3>🔨 How It Works</h3>
-This script works registering key presses with <i>keyboard</i> and using <i>pywinauto</i> to send the equivalent hotkey command to the Spotify application.
-Because it doesn't use Spotify's API, it's completely functional for all Spotify accounts.
-And because the command is sent <b>only</b> to the Spotify window, it doesn't affect any of your other audio sources!
+This script works recording key presses with <i>keyboard</i> and using <i>pywinauto</i> to send the equivalent hotkey command to the Spotify application.
+Because it doesn't use Spotify API, it's completely functional for all Spotify accounts.
+And since the command is sent <b>only</b> to the Spotify window, it doesn't affect any of your other audio sources!
 
 #
 <h3>🎁 Download</h3>
 Click <a href="https://github.com/mavvos/SpotifyGlobal/releases/latest">here</a> for the latest version.
 
-If you don't have python installed, download the .exe (executable version) and run it, should work as any other normal app.
+If you don't have python installed, download the .exe (executable version) and run it, it should work as any other normal application.
 
 If you are trying to run the python script version, you'll need to install the modules in requirements.txt
 ```
-pip install keyboard pywinauto
+pip install -r requirements.txt
 ```
 
 
 #
 <h3>📂 Your First Time Opening</h3>
-The first time you run the script, it will try to find Spotify's executable in the default installation folder, if it's not found there, you'll be prompted to type your Spotify's application path.
+The first time you run the script it will try to find Spotify's executable in the default installation folder, if it's not found there, you'll be prompted to type your Spotify's application path.
 
 Which by default is located at:
 ```
 C:\Users\~\AppData\Roaming\Spotify\Spotify.exe
 ```
-After that, <b>a file (options.txt) is created containing your default path and your hotkeys</b>, so you don't need to keep retyping.
+After that, <b>a file (options.txt) is created containing your default path and your hotkeys</b>, so you don't have to keep typing again.
 
 #
 <h3>🎹 Default Controls</h3>
 <h6>Hotkey in Script = Expected Command</h6>
 
 ```
-SHIFT + 8   = Volume Up
-SHIFT + 2   = Volume Down
-SHIFT + 4   = Previous Track
-SHIFT + 6   = Next Track
-SHIFT + 5   = Play/Pause
-SHIFT + 1   = Go back 5 seconds
-SHIFT + 3   = Go forward 5 seconds
-SHIFT + 7   = Like/Dislike Track
-SHIFT + 9   = Quit Script
+SHIFT + 8 = Volume Up
+SHIFT + 2 = Volume Down
+SHIFT + 4 = Previous Track
+SHIFT + 6 = Next Track
+SHIFT + 5 = Play/Pause
+SHIFT + 1 = Go back 5 seconds
+SHIFT + 3 = Go forward 5 seconds
+SHIFT + 7 = Like/Dislike Track
+SHIFT + 9 = Quit Script
 ```
 
 #
@@ -61,22 +61,23 @@ A normal hotkey looks something like this:
 VolDown=shift+2
 ```
 
-Keys are written as you expect them to be, in plain english, so to change the hotkey above, you could put something like:
+Keys are written as you'd expect, in plain english, so to change the hotkey above, you can put something like:
 ```
 VolDown=alt+shift+p
 ```
 
-That way, to send the command Volume Down to Spotify, you would have to press simultaneously <i>ALT SHIFT P</i>
+This way, to send the Volume Down command to Spotify, you would have to simultaneously press <i>ALT SHIFT P</i>
 
 #
-<h3>🐜 Known Problems and Bugs 🦟</h3>
+<h3>🐜 Known Issues and Bugs 🦟</h3>
 <ul>
-<li><b>Spotify needs to be closed</b> when you run this script. The script takes care of opening Spotify for you, in fact it <b>has</b> to open Spotify for it to work, if your Spotify is already running when you try opening this, the script will just crash and not work.</li>
-<li>Script doesn't seem to work with the Microsoft Store version of Spotify (because you can't access Spotify's path folder, lol).</li>
-<li>If you spam press hotkeys you can get stuck in a loop where the commands keep repeating, to fix this restart application.</li>
-<li>If you delete any line from options.txt after your first launch, the script will crash, to fix this just delete the options.txt file altogether and a new one will be created for you on next launch.</li>
-<li>Spotify needs to be open as a window for the script to work, if Spotify is minimized it will keep popping up when you press a hotkey, to fix this just let Spotify's window open and click away to your other programs.</li>
-<li>Sometimes the message about app running takes longer than normal to appear.</li>
-<li>If you are not on Windows, there's a high chance the script won't work for you, because it uses the library <i>pywinauto</i>.</li>
-<li>Some hotkey combinations have more trouble than others when it comes to being registered, this has to do with the <i>keyboard</i> module.</li>
+  <li><b>Spotify needs to be closed</b> when you run this script. If your Spotify is already running when you try opening the script, it will not work.</li>
+  <li><b>If Spotify is minimized it will continue to appear when you press a hotkey</b>. To fix this, just don't minimize Spotify, let the window open and click away to your other programs.</li>
+  <li>The script doesn't seem to work with the Microsoft Store version of Spotify (because you can't access Spotify's path folder, lol).</li>
+  <li>You should never have an options.txt file if it's your first run and/or if you can't open Spotify, if this somehow happens, just delete the options.txt file.</li>
+  <li>If you delete any line from options.txt, the script will crash. To fix this simply delete the options.txt file completely and a new one will be created for you on next launch.</li>
+  <li>If you spam press hotkeys, you may get stuck in a loop where the commands keep repeating, to fix this close the script and Spotify and restart the application.</li>
+  <li>Sometimes the message about application running takes longer than usual to appear.</li>
+  <li>Some hotkey combinations have more trouble than others when it comes to being registered, this is a problem with the <i>keyboard</i> library.</li>
+  <li>If you are not on Windows, there's a chance the script won't work for you, this is a problem with the <i>pywinauto</i> library.</li>
 </ul>
