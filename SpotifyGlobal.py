@@ -145,4 +145,5 @@ To quit application press {hk['Quit=']} or close this window.\n\
     keyboard.wait(hotkey=hk["Quit="])  # Keep running until key
 
 
-main()
+if __name__ == "__main__":
+    main()
