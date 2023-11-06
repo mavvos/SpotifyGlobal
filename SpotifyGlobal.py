@@ -1,6 +1,6 @@
 """
 Spotify controlled by Global Hotkeys.
-Registers key presses with 'keyboard' and uses 'pywinauto'
+Records key presses with 'keyboard' and uses 'pywinauto'
 to send equivalent hotkey command to Spotify application.
 """
 
@@ -46,7 +46,8 @@ def main():
     ¯\_(ツ)_/¯
     """
 
-    if getattr(sys, "frozen", False):  # Check if script is bundled as executable
+    # Check if script is bundled as executable
+    if getattr(sys, "frozen", False):
         base_dir = Path(sys.executable).parent
         print("SpotifyGlobal: RUNNING AS EXECUTABLE")
     else:
@@ -81,7 +82,7 @@ C:\\Users\\YOU\\AppData\\Roaming\\Spotify\\Spotify.exe\n\n"
     try:
         # Try to open Spotify
         sp = Application().start(rf"{user_path}")
-        sp = sp["Chrome_Widget_Win0"]  # Spotify's window name
+        sp = sp["Chrome_Widget_Win0"]  # Spotify window's name
     except:
         print(
             "Couldn't open Spotify.\n\
@@ -126,10 +127,7 @@ To quit application press {hk['Quit=']} or close this window.\n\
 
 
 def search_file(config, file_list):
-    """Config is what you're looking for,
-    file_list is list to search on.
-    Returns value found on file.
-    """
+    """Search config in file_list, returns value found"""
     for lines in file_list:
         if config in lines:
             value = lines.replace(config, "")  # Remove config
