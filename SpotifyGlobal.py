@@ -4,6 +4,7 @@ Records key presses with 'keyboard' and uses 'pywinauto'
 to send equivalent hotkey command to Spotify application.
 """
 
+import os
 import sys
 import time
 from pathlib import Path
@@ -62,22 +63,13 @@ def main():
             file_reader = file.readlines()
         user_path = search_file("path=", file_reader)
         first_run = False
+        if len(file_reader) != 10:  # Catch incomplete file
+            os.remove(options_file)
+            user_path = default_path()
+            first_run = True
     else:
-        # Try Spotify default path
+        user_path = default_path()
         first_run = True
-        user_directory = Path.home()  # C:\Users\~\
-        user_path = user_directory.joinpath(
-            "AppData", "Roaming", "Spotify", "Spotify.exe"
-        )
-        if user_path.exists():
-            print("Spotify found on default installation path.\n")
-        else:
-            # If all fails, input user for path
-            user_path = input(
-                "Type your Spotify path\n\
-Paths should look something like:\n\
-C:\\Users\\YOU\\AppData\\Roaming\\Spotify\\Spotify.exe\n\n"
-            )
 
     try:
         # Try to open Spotify
@@ -133,6 +125,20 @@ def search_file(config, file_list):
             value = lines.replace(config, "")  # Remove config
             return value.rstrip("\n")  # Remove EOL
     return None
+
+
+def default_path():
+    """Returns Spotify default path"""
+    user_directory = Path.home()  # C:\Users\~\
+    user_path = user_directory.joinpath("AppData", "Roaming", "Spotify", "Spotify.exe")
+    if not user_path.exists():
+        user_path = input(
+            "Type your Spotify path\n\
+Paths should look something like:\n\
+C:\\Users\\YOU\\AppData\\Roaming\\Spotify\\Spotify.exe\n\n"
+        )
+
+    return user_path
 
 
 if __name__ == "__main__":
