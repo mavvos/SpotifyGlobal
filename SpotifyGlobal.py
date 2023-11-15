@@ -13,29 +13,17 @@ import keyboard
 
 
 # If you want to change hotkeys, please refer to options.txt
-HOTKEY_COMMANDS = [
-    "VolUp",
-    "VolDown",
-    "PrevTrack",
-    "NextTrack",
-    "PlayPause",
-    "Back5s",
-    "Forward5s",
-    "Like",
-    "Quit",
-]
-
-DEFAULT_HOTKEYS = [
-    "shift+8",
-    "shift+2",
-    "shift+4",
-    "shift+6",
-    "shift+5",
-    "shift+1",
-    "shift+3",
-    "shift+7",
-    "shift+9",
-]
+COMMANDS_HOTKEYS = {
+    "VolUp": "shift+8",
+    "VolDown": "shift+2",
+    "PrevTrack": "shift+4",
+    "NextTrack": "shift+6",
+    "PlayPause": "shift+5",
+    "Back5s": "shift+1",
+    "Forward5s": "shift+3",
+    "Like": "shift+7",
+    "Quit": "shift+9",
+}
 
 
 def main():
@@ -88,13 +76,14 @@ Try again"
     if first_run:  # Save user path and default hotkeys in options.txt
         with open(options_file, "a", encoding="utf-8") as file:
             file.write(f"path={user_path}\n")
-            for key, default in zip(HOTKEY_COMMANDS, DEFAULT_HOTKEYS):
-                file.write(f"{key}={default}\n")
+            for key in list(COMMANDS_HOTKEYS):
+                default = f"{key}={COMMANDS_HOTKEYS[key]}\n"
+                file.write(default)
                 # Append to file_reader to avoid redundancy.
-                file_reader.append(f"{key}={default}\n")
+                file_reader.append(default)
 
     hk = {}  # Keys to use
-    for key in HOTKEY_COMMANDS:
+    for key in list(COMMANDS_HOTKEYS):
         config = f"{key}="
         value = search_file(config, file_reader)
         if value is not None:
