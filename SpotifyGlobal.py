@@ -1,5 +1,5 @@
 """
-Spotify controlled by Global Hotkeys.
+SpotifyGlobal:
 Records key presses with 'keyboard' and uses 'pywinauto'
 to send equivalent hotkey command to Spotify application.
 """
@@ -12,7 +12,7 @@ from pywinauto.application import Application
 import keyboard
 
 
-# If you want to change hotkeys, please refer to options.txt
+# If you want to change hotkeys, refer to options.txt
 COMMANDS_HOTKEYS = {
     "VolUp": "shift+8",
     "VolDown": "shift+2",
@@ -28,9 +28,9 @@ COMMANDS_HOTKEYS = {
 
 def main():
     """
-    For some reason trying to use pywinauto's Application().connect() doesn't work;
-    Spotify's executable name simply disappears in thin air to never be found
-    and I couldn't figure out a way to retrieve it so I could use an already
+    For some reason trying to use pywinauto Application().connect() doesn't work;
+    Spotify executable name simply disappears in thin air to never be found
+    I couldn't figure out a way to retrieve it so we could use an already
     opened instance, so on this program's execution it also starts Spotify.
     ¯\_(ツ)_/¯
     """
@@ -45,24 +45,24 @@ def main():
 
     options_file = base_dir.joinpath("options.txt")
     file_reader = []
+    first_run = True
 
     if options_file.exists():
         with open(options_file, "r", encoding="utf-8") as file:
             file_reader = file.readlines()
         user_path = search_file("path=", file_reader)
-        first_run = False
         if len(file_reader) != 10:  # Catch incomplete file
             os.remove(options_file)
             user_path = default_path()
-            first_run = True
+        else:
+            first_run = False
     else:
         user_path = default_path()
-        first_run = True
 
     try:
         # Try to open Spotify
         sp = Application().start(rf"{user_path}")
-        sp = sp["Chrome_Widget_Win0"]  # Spotify window's name
+        sp = sp["Chrome_Widget_Win0"]  # Spotify window name
     except:
         print(
             "Couldn't open Spotify.\n\
@@ -108,7 +108,7 @@ To quit application press {hk['Quit=']} or close this window.\n\
 
 
 def search_file(config, file_list):
-    """Search config in file_list, returns value found"""
+    """Searches config in file_list, returns value found"""
     for lines in file_list:
         if config in lines:
             value = lines.replace(config, "")  # Remove config
@@ -126,7 +126,6 @@ def default_path():
 Paths should look something like:\n\
 C:\\Users\\YOU\\AppData\\Roaming\\Spotify\\Spotify.exe\n\n"
         )
-
     return user_path
 
 
