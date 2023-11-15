@@ -70,14 +70,12 @@ This way, to send the Volume Down command to Spotify, you would have to simultan
 
 #
 <h3>🐜 Known Issues and Bugs 🦟</h3>
-<ul>
+<ol>
   <li><b>Spotify needs to be closed</b> when you run this script. If your Spotify is already running when you try opening the script, it will not work.</li>
   <li><b>If Spotify is minimized it will continue to appear when you press a hotkey</b>. To fix this, just don't minimize Spotify, let the window open and click away to your other programs.</li>
   <li>The script doesn't seem to work with the Microsoft Store version of Spotify (because you can't access Spotify's path folder, lol).</li>
-  <li>You should never have an options.txt file if it's your first run and/or if you can't open Spotify, if this somehow happens, just delete the options.txt file.</li>
-  <li>If you delete any line from options.txt, the script will crash. To fix this simply delete the options.txt file completely and a new one will be created for you on next launch.</li>
   <li>If you spam press hotkeys, you may get stuck in a loop where the commands keep repeating, to fix this close the script and Spotify and restart the application.</li>
   <li>Sometimes the message about application running takes longer than usual to appear.</li>
   <li>Some hotkey combinations have more trouble than others when it comes to being registered, this is a problem with the <i>keyboard</i> library.</li>
   <li>If you are not on Windows, there's a chance the script won't work for you, this is a problem with the <i>pywinauto</i> library.</li>
-</ul>
+</ol>
