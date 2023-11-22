@@ -76,39 +76,39 @@ Try again"
     if first_run:  # Save user path and default hotkeys in options.txt
         with open(options_file, "a", encoding="utf-8") as file:
             file.write(f"path={user_path}\n")
-            for key in list(COMMANDS_HOTKEYS):
+            for key in COMMANDS_HOTKEYS:
                 default = f"{key}={COMMANDS_HOTKEYS[key]}\n"
                 file.write(default)
                 # Append to file_reader to avoid redundancy.
                 file_reader.append(default)
 
     hk = {}  # Keys to use
-    for key in list(COMMANDS_HOTKEYS):
+    for key in COMMANDS_HOTKEYS:
         config = f"{key}="
         value = search_file(config, file_reader)
         if value is not None:
-            hk[config] = value
+            hk[config[:-1]] = value
 
-    keyboard.add_hotkey(hk["VolUp="], lambda: sp.send_keystrokes("^{UP}"))
-    keyboard.add_hotkey(hk["VolDown="], lambda: sp.send_keystrokes("^{DOWN}"))
-    keyboard.add_hotkey(hk["PrevTrack="], lambda: sp.send_keystrokes("^{LEFT}"))
-    keyboard.add_hotkey(hk["NextTrack="], lambda: sp.send_keystrokes("^{RIGHT}"))
-    keyboard.add_hotkey(hk["PlayPause="], lambda: sp.send_keystrokes("{SPACE}"))
-    keyboard.add_hotkey(hk["Back5s="], lambda: sp.send_keystrokes("+{LEFT}"))
-    keyboard.add_hotkey(hk["Forward5s="], lambda: sp.send_keystrokes("+{RIGHT}"))
-    keyboard.add_hotkey(hk["Like="], lambda: sp.send_keystrokes("%+{B}"))
+    keyboard.add_hotkey(hk["VolUp"], lambda: sp.send_keystrokes("^{UP}"))
+    keyboard.add_hotkey(hk["VolDown"], lambda: sp.send_keystrokes("^{DOWN}"))
+    keyboard.add_hotkey(hk["PrevTrack"], lambda: sp.send_keystrokes("^{LEFT}"))
+    keyboard.add_hotkey(hk["NextTrack"], lambda: sp.send_keystrokes("^{RIGHT}"))
+    keyboard.add_hotkey(hk["PlayPause"], lambda: sp.send_keystrokes("{SPACE}"))
+    keyboard.add_hotkey(hk["Back5s"], lambda: sp.send_keystrokes("+{LEFT}"))
+    keyboard.add_hotkey(hk["Forward5s"], lambda: sp.send_keystrokes("+{RIGHT}"))
+    keyboard.add_hotkey(hk["Like"], lambda: sp.send_keystrokes("%+{B}"))
 
     print(
         f"\nApplication is up and running, keep this window open.\n\n\
-To quit application press {hk['Quit=']} or close this window.\n\
+To quit application press {hk['Quit']} or close this window.\n\
         Spotify will stay open."
     )
 
-    keyboard.wait(hotkey=hk["Quit="])  # Keep running until key
+    keyboard.wait(hotkey=hk["Quit"])  # Keep running until key
 
 
 def search_file(config, file_list):
-    """Searches config in file_list, returns value found"""
+    """Searches config in file_list, returns value found or None"""
     for lines in file_list:
         if config in lines:
             value = lines.replace(config, "")  # Remove config
