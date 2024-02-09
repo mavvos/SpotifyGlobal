@@ -9,6 +9,7 @@ import sys
 import time
 from pathlib import Path
 from pywinauto.application import Application
+from SGUtils import OptionsUtils
 import keyboard
 
 
@@ -35,59 +36,43 @@ def main():
     ¯\_(ツ)_/¯
     """
 
-    # Check if script is bundled as executable
-    if getattr(sys, "frozen", False):
-        base_dir = Path(sys.executable).parent
-        print("SpotifyGlobal: RUNNING AS EXECUTABLE")
-    else:
-        base_dir = Path(__file__).parent
-        print("SpotifyGlobal: RUNNING AS PYTHON SCRIPT")
+    default_options_file = "options.txt"
+    default_options_len = 10
 
-    options_file = base_dir.joinpath("options.txt")
-    file_reader = []
-    first_run = True
+    options = OptionsUtils(default_options_file, default_options_len)
 
-    if options_file.exists():
-        with open(options_file, "r", encoding="utf-8") as file:
-            file_reader = file.readlines()
-        user_path = search_file("path=", file_reader)
-        if len(file_reader) != 10:  # Catch incomplete file
-            os.remove(options_file)
-            user_path = default_path()
+    options.set_directory()
+
+    # Options file checking
+    if options.file_exists():
+        options.read_file()
+        user_path = options.search_file("path")
+
+        if user_path:
+            options.spotify_path = user_path
         else:
-            first_run = False
+            if not options.incomplete_file():
+                print("PATH NOT FOUND")
+            os.remove(options.dir)
+            options.spotify_default_path()
+            options.write_default_keys(COMMANDS_HOTKEYS)
+
     else:
-        user_path = default_path()
+        options.spotify_default_path()
+        options.write_default_keys(COMMANDS_HOTKEYS)
 
-    try:
-        # Try to open Spotify
-        sp = Application().start(rf"{user_path}")
-        sp = sp["Chrome_Widget_Win0"]  # Spotify window name
-    except:
-        print(
-            "Couldn't open Spotify.\n\
-Either PATH typed is wrong or\n\
-options.txt has the wrong PATH.\n\n\
-Try again"
-        )
-        time.sleep(4)
-        sys.exit(1)
+    # Try to Open Spotify here
+    #
+    #    PLACEHOLDER
+    #
 
-    if first_run:  # Save user path and default hotkeys in options.txt
-        with open(options_file, "a", encoding="utf-8") as file:
-            file.write(f"path={user_path}\n")
-            for key in COMMANDS_HOTKEYS:
-                default = f"{key}={COMMANDS_HOTKEYS[key]}\n"
-                file.write(default)
-                # Append to file_reader to avoid redundancy.
-                file_reader.append(default)
+    # Read hotkeys
+    hk = options.read_set_keys(COMMANDS_HOTKEYS)
 
-    hk = {}  # Keys to use
-    for key in COMMANDS_HOTKEYS:
-        config = f"{key}="
-        value = search_file(config, file_reader)
-        if value is not None:
-            hk[config[:-1]] = value
+    # HOTKEYS FUNCTIONALITY
+    #
+    #    PLACEHOLDER
+    #
 
     keyboard.add_hotkey(hk["VolUp"], lambda: sp.send_keystrokes("^{UP}"))
     keyboard.add_hotkey(hk["VolDown"], lambda: sp.send_keystrokes("^{DOWN}"))
@@ -105,28 +90,6 @@ To quit application press {hk['Quit']} or close this window.\n\
     )
 
     keyboard.wait(hotkey=hk["Quit"])  # Keep running until key
-
-
-def search_file(config, file_list):
-    """Searches config in file_list, returns value found or None"""
-    for lines in file_list:
-        if config in lines:
-            value = lines.replace(config, "")  # Remove config
-            return value.rstrip("\n")  # Remove EOL
-    return None
-
-
-def default_path():
-    """Returns Spotify default path"""
-    user_directory = Path.home()  # C:\Users\~\
-    user_path = user_directory.joinpath("AppData", "Roaming", "Spotify", "Spotify.exe")
-    if not user_path.exists():
-        user_path = input(
-            "Type your Spotify path\n\
-Paths should look something like:\n\
-C:\\Users\\YOU\\AppData\\Roaming\\Spotify\\Spotify.exe\n\n"
-        )
-    return user_path
 
 
 if __name__ == "__main__":
