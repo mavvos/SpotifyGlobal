@@ -50,6 +50,7 @@ def main():
             options.spotify_path = user_path
         else:
             if not options.incomplete_file():
+                # In case file exists, it's complete but PATH still missing
                 print("PATH NOT FOUND")
             os.remove(options.dir)
             options.spotify_default_path()
@@ -63,16 +64,17 @@ def main():
         sp = Application().start(rf"{options.spotify_path}")
         sp = sp["Chrome_Widget_Win0"]  # Spotify window name
     except AppStartError:
-        print(
+        quit(
             "Couldn't open Spotify.\nEither PATH typed is wrong or options.txt has the wrong PATH.\n\nTry again"
         )
-        time.sleep(4)
-        sys.exit(1)
 
-    # Read hotkeys
+    # Set Hotkeys
     hk = options.read_set_keys(COMMANDS_HOTKEYS)
+    if not hk:
+        # In case Spotify opens but no hotkey found
+        quit("Couldn't set or find hotkeys.\nPlease try again.")
 
-    # Hotkeys functionalities
+    # Listen Hotkeys
     keyboard.add_hotkey(hk["VolUp"], lambda: sp.send_keystrokes("^{UP}"))
     keyboard.add_hotkey(hk["VolDown"], lambda: sp.send_keystrokes("^{DOWN}"))
     keyboard.add_hotkey(hk["PrevTrack"], lambda: sp.send_keystrokes("^{LEFT}"))
@@ -85,10 +87,16 @@ def main():
     print(
         f"\nSpotifyGlobal is up and running, keep this window open.\n\n\
 To quit application press {hk['Quit']} or close this window.\n\
-    Spotify will stay open."
+        Spotify will stay open."
     )
 
     keyboard.wait(hotkey=hk["Quit"])
+
+
+def quit(message: str) -> None:
+    print(message)
+    time.sleep(4)
+    sys.exit(1)
 
 
 if __name__ == "__main__":

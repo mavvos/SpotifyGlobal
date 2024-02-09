@@ -7,7 +7,9 @@ from pathlib import Path
 class OptionsUtils:
 
     def __init__(self, file: str, len: int) -> None:
-        """File name, Default length of file."""
+        """file = File name.\n
+        len = Default length of file.
+        """
         self.file = file
         self.len = len
 
@@ -65,7 +67,6 @@ class OptionsUtils:
             self.spotify_path = default_path
 
     def running_as_exe(self) -> bool:
-        """Returns True if file is running as executable."""
         if getattr(sys, "frozen", False):
             return True
         return False
@@ -77,8 +78,9 @@ class OptionsUtils:
                 for key in hk_dict:
                     default = f"{key}={hk_dict[key]}\n"
                     file.write(default)
-            self.read_file()
+            self.read_file()  # In case file does not exist, read file to get new default hotkeys
         except AttributeError:
+            # Special case where spotify_default_path() does not exist, input user for path
             self.spotify_path = self.input_path()
 
     def read_set_keys(self, hk_dict: dict) -> dict:
