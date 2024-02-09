@@ -80,7 +80,7 @@ class OptionsUtils:
                     file.write(default)
             self.read_file()  # In case file does not exist, read file to get new default hotkeys
         except AttributeError:
-            # Special case where spotify_default_path() does not exist, input user for path
+            # In case Spotify default_path does not exist, input user for path
             self.spotify_path = self.input_path()
 
     def read_set_keys(self, hk_dict: dict) -> dict:

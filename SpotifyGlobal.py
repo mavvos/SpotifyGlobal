@@ -3,26 +3,10 @@ SpotifyGlobal: https://github.com/mavvos/SpotifyGlobal
 """
 
 import os
-import sys
-import time
-from pathlib import Path
 from pywinauto.application import Application, AppStartError
-from SGUtils import OptionsUtils
+from SGHelper import sg_quit, DEFAULT_HK
+from SGOptions import OptionsUtils
 import keyboard
-
-
-# If you want to change hotkeys, refer to options.txt
-COMMANDS_HOTKEYS = {
-    "VolUp": "shift+8",
-    "VolDown": "shift+2",
-    "PrevTrack": "shift+4",
-    "NextTrack": "shift+6",
-    "PlayPause": "shift+5",
-    "Back5s": "shift+1",
-    "Forward5s": "shift+3",
-    "Like": "shift+7",
-    "Quit": "shift+9",
-}
 
 
 def main():
@@ -54,27 +38,25 @@ def main():
                 print("PATH NOT FOUND")
             os.remove(options.dir)
             options.spotify_default_path()
-            options.write_default_keys(COMMANDS_HOTKEYS)
+            options.write_default_keys(DEFAULT_HK)
     else:
         options.spotify_default_path()
-        options.write_default_keys(COMMANDS_HOTKEYS)
+        options.write_default_keys(DEFAULT_HK)
 
     # Open Spotify
     try:
         sp = Application().start(rf"{options.spotify_path}")
         sp = sp["Chrome_Widget_Win0"]  # Spotify window name
     except AppStartError:
-        quit(
+        sg_quit(
             "Couldn't open Spotify.\nEither PATH typed is wrong or options.txt has the wrong PATH.\n\nTry again"
         )
 
-    # Set Hotkeys
-    hk = options.read_set_keys(COMMANDS_HOTKEYS)
+    # Hotkeys
+    hk = options.read_set_keys(DEFAULT_HK)
     if not hk:
-        # In case Spotify opens but no hotkey found
-        quit("Couldn't set or find hotkeys.\nPlease try again.")
+        sg_quit("Couldn't set or find hotkeys.\nPlease try again.")
 
-    # Listen Hotkeys
     keyboard.add_hotkey(hk["VolUp"], lambda: sp.send_keystrokes("^{UP}"))
     keyboard.add_hotkey(hk["VolDown"], lambda: sp.send_keystrokes("^{DOWN}"))
     keyboard.add_hotkey(hk["PrevTrack"], lambda: sp.send_keystrokes("^{LEFT}"))
@@ -84,19 +66,8 @@ def main():
     keyboard.add_hotkey(hk["Forward5s"], lambda: sp.send_keystrokes("+{RIGHT}"))
     keyboard.add_hotkey(hk["Like"], lambda: sp.send_keystrokes("%+{B}"))
 
-    print(
-        f"\nSpotifyGlobal is up and running, keep this window open.\n\n\
-To quit application press {hk['Quit']} or close this window.\n\
-        Spotify will stay open."
-    )
-
+    print(f"SpotifyGlobal is up and running.\n{hk['Quit']} to quit.")
     keyboard.wait(hotkey=hk["Quit"])
-
-
-def quit(message: str) -> None:
-    print(message)
-    time.sleep(4)
-    sys.exit(1)
 
 
 if __name__ == "__main__":
