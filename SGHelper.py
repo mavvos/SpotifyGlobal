@@ -14,6 +14,17 @@ DEFAULT_HK = {
     "Quit": "shift+9",
 }
 
+DEFAULT_COMMANDS = [
+    "^{UP}",
+    "^{DOWN}",
+    "^{LEFT}",
+    "^{RIGHT}",
+    "{SPACE}",
+    "+{LEFT}",
+    "+{RIGHT}",
+    "%+{B}",
+]
+
 
 def sg_quit(message: str) -> None:
     print(message)
