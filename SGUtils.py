@@ -57,7 +57,8 @@ class OptionsUtils:
             return None
 
     def spotify_default_path(self) -> None:
-        default_path = Path.home().joinpath(
+        user_directory = Path.home()
+        default_path = user_directory.joinpath(
             "AppData", "Roaming", "Spotify", "Spotify.exe"
         )
         if default_path.exists():
@@ -70,12 +71,15 @@ class OptionsUtils:
         return False
 
     def write_default_keys(self, hk_dict: dict) -> None:
-        with open(self.dir, "a") as file:
-            file.write(f"path={self.spotify_path}\n")
-            for key in hk_dict:
-                default = f"{key}={hk_dict[key]}\n"
-                file.write(default)
-        self.read_file()
+        try:
+            with open(self.dir, "a") as file:
+                file.write(f"path={self.spotify_path}\n")
+                for key in hk_dict:
+                    default = f"{key}={hk_dict[key]}\n"
+                    file.write(default)
+            self.read_file()
+        except AttributeError:
+            self.spotify_path = self.input_path()
 
     def read_set_keys(self, hk_dict: dict) -> dict:
         hk = {}
@@ -85,3 +89,11 @@ class OptionsUtils:
             if value is not None:
                 hk[config] = value
         return hk
+
+    def input_path(self) -> str:
+        print("Spotify not found.")
+        return input(
+            "Type your Spotify path\n\
+Paths should look something like:\n\
+C:\\Users\\YOU\\AppData\\Roaming\\Spotify\\Spotify.exe\n\n"
+        )

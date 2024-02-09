@@ -1,14 +1,12 @@
 """
-SpotifyGlobal:
-Records key presses with 'keyboard' and uses 'pywinauto'
-to send equivalent hotkey command to Spotify application.
+SpotifyGlobal: https://github.com/mavvos/SpotifyGlobal
 """
 
 import os
 import sys
 import time
 from pathlib import Path
-from pywinauto.application import Application
+from pywinauto.application import Application, AppStartError
 from SGUtils import OptionsUtils
 import keyboard
 
@@ -30,7 +28,7 @@ COMMANDS_HOTKEYS = {
 def main():
     """
     For some reason trying to use pywinauto Application().connect() doesn't work;
-    Spotify executable name simply disappears in thin air to never be found
+    Spotify executable name simply disappears in thin air to never be found.
     I couldn't figure out a way to retrieve it so we could use an already
     opened instance, so on this program's execution it also starts Spotify.
     ¯\_(ツ)_/¯
@@ -56,24 +54,25 @@ def main():
             os.remove(options.dir)
             options.spotify_default_path()
             options.write_default_keys(COMMANDS_HOTKEYS)
-
     else:
         options.spotify_default_path()
         options.write_default_keys(COMMANDS_HOTKEYS)
 
-    # Try to Open Spotify here
-    #
-    #    PLACEHOLDER
-    #
+    # Open Spotify
+    try:
+        sp = Application().start(rf"{options.spotify_path}")
+        sp = sp["Chrome_Widget_Win0"]  # Spotify window name
+    except AppStartError:
+        print(
+            "Couldn't open Spotify.\nEither PATH typed is wrong or options.txt has the wrong PATH.\n\nTry again"
+        )
+        time.sleep(4)
+        sys.exit(1)
 
     # Read hotkeys
     hk = options.read_set_keys(COMMANDS_HOTKEYS)
 
-    # HOTKEYS FUNCTIONALITY
-    #
-    #    PLACEHOLDER
-    #
-
+    # Hotkeys functionalities
     keyboard.add_hotkey(hk["VolUp"], lambda: sp.send_keystrokes("^{UP}"))
     keyboard.add_hotkey(hk["VolDown"], lambda: sp.send_keystrokes("^{DOWN}"))
     keyboard.add_hotkey(hk["PrevTrack"], lambda: sp.send_keystrokes("^{LEFT}"))
@@ -84,12 +83,12 @@ def main():
     keyboard.add_hotkey(hk["Like"], lambda: sp.send_keystrokes("%+{B}"))
 
     print(
-        f"\nApplication is up and running, keep this window open.\n\n\
+        f"\nSpotifyGlobal is up and running, keep this window open.\n\n\
 To quit application press {hk['Quit']} or close this window.\n\
-        Spotify will stay open."
+    Spotify will stay open."
     )
 
-    keyboard.wait(hotkey=hk["Quit"])  # Keep running until key
+    keyboard.wait(hotkey=hk["Quit"])
 
 
 if __name__ == "__main__":
