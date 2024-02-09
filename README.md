@@ -4,23 +4,23 @@
   <a href="https://github.com/mavvos/SpotifyGlobal/blob/main/LICENSE">![License](https://img.shields.io/badge/License-MIT-red)</a>
   <a href="https://github.com/mavvos/SpotifyGlobal/releases/latest">![Demo](https://img.shields.io/badge/Download-Latest-green)</a>
 
-  Control Spotify from anywhere with Global Hotkeys!\
-  No need for the window to be in focus, working for all users (free & premium)
+  Control Spotify from anywhere with customizable Global Hotkeys!\
+  No need for the window to be in focus, working for all Spotify accounts (free & premium)!
 
 </div>
 <hr>
 <h3>🔨 How It Works</h3>
-This script works recording key presses with <i>keyboard</i> and using <i>pywinauto</i> to send the equivalent hotkey command to the Spotify application.
-Because it doesn't use Spotify API, it's completely functional for all Spotify accounts.
-And since the command is sent <b>only</b> to the Spotify window, it doesn't affect any of your other audio sources!
+This Python script listens for hotkeys set with the <i><b>keyboard</b></i> module then sends the command to <i><b>pywinauto</b></i> who will send the equivalent hotkey command to the Spotify application.
+Because the command is sent <b>only</b> to the Spotify window, this script doesn't affect any of your other audio sources! And because it doesn't use Spotify API, it's functional for all Spotify accounts.
 
 #
 <h3>🎁 Download</h3>
-Click <a href="https://github.com/mavvos/SpotifyGlobal/releases/latest">here</a> for the latest version.
+Click <a href="https://github.com/mavvos/SpotifyGlobal/releases/latest">here</a> to download the latest version.
 
-If you don't have python installed, download the .exe (executable version) and run it, it should work as any other normal application.
 
-If you are trying to run the python script version, you'll need to install the modules in requirements.txt
+On the download page you can get the executable version (.exe), it should work as any other normal application, just run it.
+
+If you are trying to run the Python version, you'll need the modules in requirements.txt
 ```
 pip install -r requirements.txt
 ```
@@ -68,6 +68,8 @@ VolDown=alt+shift+p
 
 This way, to send the Volume Down command to Spotify, you would have to simultaneously press <i>ALT SHIFT P</i>
 
+> Note: If you want the script to start on Windows boot,  follow [this tutorial.](https://support.microsoft.com/en-us/windows/add-an-app-to-run-automatically-at-startup-in-windows-10-150da165-dcd9-7230-517b-cf3c295d89dd) Make you sure you add a shortcut, not the script itself, if you add the script to the folder the created options.txt file will also open on boot.
+
 #
 <h3>🐜 Known Issues and Bugs 🦟</h3>
 <ol>
@@ -75,7 +77,6 @@ This way, to send the Volume Down command to Spotify, you would have to simultan
   <li><b>If Spotify is minimized it will continue to appear when you press a hotkey</b>. To fix this, just don't minimize Spotify, let the window open and click away to your other programs.</li>
   <li>The script doesn't seem to work with the Microsoft Store version of Spotify (because you can't access Spotify's path folder, lol).</li>
   <li>If you spam press hotkeys, you may get stuck in a loop where the commands keep repeating, to fix this close the script and Spotify and restart the application.</li>
-  <li>Sometimes the message about application running takes longer than usual to appear.</li>
   <li>Some hotkey combinations have more trouble than others when it comes to being registered, this is a problem with the <i>keyboard</i> library.</li>
   <li>If you are not on Windows, there's a chance the script won't work for you, this is a problem with the <i>pywinauto</i> library.</li>
 </ol>
