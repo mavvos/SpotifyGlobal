@@ -57,7 +57,7 @@ def main():
     # Setup Hotkeys
     for key, cmd in zip(hk, DEFAULT_COMMANDS):
         keyboard.add_hotkey(hk[key], lambda cmd=cmd: sp.send_keystrokes(cmd))
-    print(f"SpotifyGlobal is up and running.    {hk['Quit']} to quit.")
+    print(f"SpotifyGlobal is up and running.\n    {hk['Quit']} to quit.")
     keyboard.wait(hotkey=hk["Quit"])
 
 
