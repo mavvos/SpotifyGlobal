@@ -1,3 +1,5 @@
+""" SpotifyGlobal Helper """
+
 import time
 import sys
 
@@ -13,6 +15,7 @@ DEFAULT_HK = {
     "Like": "shift+7",
     "Quit": "shift+9",
 }
+
 
 DEFAULT_COMMANDS = [
     "^{UP}",

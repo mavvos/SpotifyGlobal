@@ -1,23 +1,18 @@
 """
-SpotifyGlobal: https://github.com/mavvos/SpotifyGlobal
+             SpotifyGlobal
+Add (customizable) global hotkeys to Spotify!
+
+More at https://github.com/mavvos/SpotifyGlobal
 """
 
 import os
+import keyboard
 from pywinauto.application import Application, AppStartError
 from SGHelper import sg_quit, DEFAULT_HK, DEFAULT_COMMANDS
 from SGOptions import OptionsUtils
-import keyboard
 
 
 def main():
-    """
-    For some reason trying to use pywinauto Application().connect() doesn't work;
-    Spotify executable name simply disappears in thin air to never be found.
-    I couldn't figure out a way to retrieve it so we could use an already
-    opened instance, so on this program's execution it also starts Spotify.
-    ¯\_(ツ)_/¯
-    """
-
     default_options_file = "options.txt"
     default_options_len = 10
 
@@ -45,11 +40,13 @@ def main():
 
     # Open Spotify
     try:
+        # We can't use pywinauto Application.connect
+        # because Spotify executable name changes with every song.
         sp = Application().start(rf"{options.spotify_path}")
-        sp = sp["Chrome_Widget_Win0"]  # Spotify window name
+        sp = sp["Chrome_Widget_Win0"]  # Default Spotify window name
     except AppStartError:
         sg_quit(
-            "Couldn't open Spotify.\nEither PATH typed is wrong or options.txt has the wrong PATH.\n\nTry again"
+            "Couldn't open Spotify. PATH typed is wrong or options.txt has the wrong PATH.\n\nTry again"
         )
 
     # Get Hotkeys

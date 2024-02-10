@@ -1,4 +1,4 @@
-""" SpotifyGlobal Utilities """
+""" SpotifyGlobal Options Utilities """
 
 import sys
 from pathlib import Path
@@ -6,12 +6,15 @@ from pathlib import Path
 
 class OptionsUtils:
 
-    def __init__(self, file: str, len: int) -> None:
+    def __init__(self, file: str, lines: int) -> None:
         """file = File name.\n
-        len = Default length of file.
+        lines = Default length of file.
         """
         self.file = file
-        self.len = len
+        self.lines = lines
+        self.dir = ""
+        self.file_content = ""
+        self.spotify_path = ""
 
     def set_directory(self) -> None:
         """Set directory based on parent directory"""
@@ -34,12 +37,13 @@ class OptionsUtils:
 
     def incomplete_file(self) -> bool | None:
         try:
-            if len(self.file_content) != self.len:
+            if len(self.file_content) != self.lines:
                 return True
             return False
         except AttributeError:
             print(
-                f"> catch_incomplete error: {self.file} has not been read, read_file() must be executed first."
+                f"> catch_incomplete error: {self.file}\
+                has not been read, read_file() must be executed first."
             )
             return None
 
@@ -54,7 +58,8 @@ class OptionsUtils:
             return None
         except AttributeError:
             print(
-                f"> look_in_file error: {self.file} has not been read, read_file() must be executed first."
+                f"> look_in_file error: {self.file}\
+                has not been read, read_file() must be executed first."
             )
             return None
 
