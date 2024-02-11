@@ -8,15 +8,15 @@ More at https://github.com/mavvos/SpotifyGlobal
 import os
 import keyboard
 from pywinauto.application import Application, AppStartError
-from SGHelper import sg_quit, DEFAULT_HK, DEFAULT_COMMANDS
-from SGOptions import OptionsUtils
+from defaults import sg_quit, DEFAULT_HK, DEFAULT_COMMANDS
+from options_handler import OptionsHandler
 
 
 def main():
     default_options_file = "options.txt"
     default_options_len = 10
 
-    options = OptionsUtils(default_options_file, default_options_len)
+    options = OptionsHandler(default_options_file, default_options_len)
 
     options.set_directory()
 
