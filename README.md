@@ -10,29 +10,29 @@
 </div>
 
 #
-<h3>❓ F.A.Q.</h3>
-
 ### How does this work?
-This Python script listens for hotkeys with the <i><b>keyboard</b></i> module then sent to the <i><b>pywinauto</b></i> module who will send the equivalent hotkey command to the Spotify application.
-Because commands are sent <b>only</b> to the Spotify window, this script doesn't affect any  other audio sources! And because it doesn't use Spotify API, it's functional for all Spotify accounts.
+SpotifyGlobal listens for hotkeys with the <i><b>keyboard</b></i> module then sends them to <i><b>pywinauto</b></i> who will send the equivalent hotkey command to the Spotify application.
+Because commands are sent <b>only</b> to the Spotify window, this script doesn't affect any  other audio sources! And because it doesn't use Spotify API, it's functional for all Spotify accounts (free & premium).
 
-### Why does this exist? Spotify already has hotkeys?
-It's true that Spotify has hotkeys, but they don't work out of focus (at least not for me), this is what I was looking to fix with SpotifyGlobal. Sometimes you just don't have time to alt tab or open game bar to interact with Spotify.
+### Why does this exist?
+While Spotify has built-in hotkeys, they don't work out of focus (at least not for me), this is what I was looking to fix with SpotifyGlobal. Sometimes you just don't have time to alt tab or open game bar but still want to interact with the Spotify desktop application. I tried really hard to find a global hotkey solution for a while, but all of them had some sort of problem, so the natural conclusion was for me to make a script that works for my needs, and I'm sharing it in hopes it can help you too!
 
-### Toastify, hayer's SpotifyHotkeys, lofi, etc. already do that. Why didn't you just use them?
-Trust me when I say that I tried really hard to find a global hotkey solution for a long time, but in all of them there was always a problem, so the natural conclusion was for me to make a script that works for my needs, and I'm sharing it in hopes that I can help someone that had the same problem.
-
-### How do I make the script run on startup?
-If you want the script to start on Windows boot,  follow [this tutorial.](https://support.microsoft.com/en-us/windows/add-an-app-to-run-automatically-at-startup-in-windows-10-150da165-dcd9-7230-517b-cf3c295d89dd). Make you sure you add a shortcut to the script, not the script itself, if you add the script to the folder the created options file will also open on boot.
+### How do I make SpotifyGlobal run on startup?
+If you want the script to start on Windows boot, follow [this tutorial](https://support.microsoft.com/en-us/windows/add-an-app-to-run-automatically-at-startup-in-windows-10-150da165-dcd9-7230-517b-cf3c295d89dd). Make you sure you add a shortcut to the script, not the script itself.
 
 #
 <h3>🎁 Download</h3>
 Click <a href="https://github.com/mavvos/SpotifyGlobal/releases/latest">here</a> to download the latest version.
 
 
-On the download page you can get the executable version (.exe), it should work as any other normal application, just run it.
+On the download page there's an executable version (.exe), download it, double click and you're good to go!
 
-If you are trying to run the Python version, clone this repository and get the modules in requirements.txt
+If you are trying to run the Python version, clone this repository:
+```
+git clone https://github.com/mavvos/SpotifyGlobal.git
+```
+
+Make you have the required modules installed. Inside the cloned directory run:
 ```
 pip install -r requirements.txt
 ```
