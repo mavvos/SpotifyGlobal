@@ -1,8 +1,9 @@
 <h1 align="center">🎵 Spotify Global 🌐</h1>
 <div align="center">
   
-  <a href="https://github.com/mavvos/SpotifyGlobal/blob/main/LICENSE">![License](https://img.shields.io/badge/License-MIT-red)</a>
-  <a href="https://github.com/mavvos/SpotifyGlobal/releases/latest">![Demo](https://img.shields.io/badge/Download-Latest-green)</a>
+[![download](https://img.shields.io/badge/Download-Latest-green)](https://github.com/mavvos/SpotifyGlobal/releases/latest)
+[![license](https://img.shields.io/badge/License-MIT-red)](https://github.com/mavvos/SpotifyGlobal/blob/main/LICENSE)
+[![python](https://img.shields.io/badge/Python-3.6-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 
   Control Spotify from anywhere with customizable Global Hotkeys!\
   No need for the window to be in focus, working for all Spotify accounts (free & premium)!
@@ -27,17 +28,19 @@ Click <a href="https://github.com/mavvos/SpotifyGlobal/releases/latest">here</a>
 
 On the download page there's an executable version (.exe), download it, double click and you're good to go!
 
-If you are trying to run the Python version, clone this repository:
+
+
+If you are trying to run the Python script, you'll need Python version 3.6 or newer, then clone this repository:
 ```
 git clone https://github.com/mavvos/SpotifyGlobal.git
 ```
 
-Make you have the required modules installed. Inside the cloned directory run:
+Make sure you have the required modules installed. Inside the cloned directory run:
 ```
 pip install -r requirements.txt
 ```
 
-Then inside the SpotifyGlobal directory run SpotifyGlobal.py
+Inside the SpotifyGlobal directory run SpotifyGlobal.py
 
 #
 <h3>📂 Your First Time Opening</h3>
@@ -82,8 +85,7 @@ This way, to send the Volume Down command to Spotify, you would have to simultan
 <ol>
   <li><b>Spotify needs to be closed</b> when you run this script. If your Spotify is already running when you try opening the script, it will not work.</li>
   <li><b>If Spotify is minimized it will continue to appear when you press a hotkey</b>. To fix this don't minimize Spotify, let the window open and click away to your other programs.</li>
-  <li>The script doesn't seem to work with the Microsoft Store version of Spotify (untested).</li>
   <li>If you spam press hotkeys, you may get stuck in a loop where the commands keep repeating, to fix this close everything and restart the application.</li>
   <li>Some hotkey combinations have more trouble than others when it comes to being registered, this is a common problem with the <i>keyboard</i> library.</li>
-  <li>If you are not on Windows, there's a chance the script won't work for you, this is a problem with the <i>pywinauto</i> library.</li>
+  <li>This software works only on Windows, because of the dependencies on modules pywinauto and pywin32.</li>
 </ol>
