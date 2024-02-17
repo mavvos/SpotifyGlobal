@@ -25,10 +25,7 @@ If you want the script to start on Windows boot, follow [this tutorial](https://
 <h3>🎁 Download</h3>
 Click <a href="https://github.com/mavvos/SpotifyGlobal/releases/latest">here</a> to download the latest version.
 
-
 On the download page there's an executable version (.exe), download it, double click and you're good to go!
-
-
 
 If you are trying to run the Python script, you'll need Python version 3.6 or newer, then clone this repository:
 ```
@@ -43,10 +40,10 @@ pip install -r requirements.txt
 Inside the SpotifyGlobal directory run SpotifyGlobal.py
 
 #
-<h3>📂 Your First Time Opening</h3>
-The first time you run the script it will try to find Spotify's executable in the default installation folder, if it's not found there, you'll be prompted to type your Spotify's application path.
+<h3>🤔 How To Use </h3>
+When you open SpotifyGlobal it connects to your open Spotify, because of this <b>Spotify must be open and active/maximized when you start SpotifyGlobal</b>.
 
-After that, a file is created containing your path and hotkeys (options.txt).
+After that just let Spotify active/maximized and you are free to click away to other programs.
 
 #
 <h3>🎹 Default Controls</h3>
@@ -83,9 +80,9 @@ This way, to send the Volume Down command to Spotify, you would have to simultan
 #
 <h3>🐜 Known Issues and Bugs 🦟</h3>
 <ol>
-  <li><b>Spotify needs to be closed</b> when you run this script. If your Spotify is already running when you try opening the script, it will not work.</li>
-  <li><b>If Spotify is minimized it will continue to appear when you press a hotkey</b>. To fix this don't minimize Spotify, let the window open and click away to your other programs.</li>
-  <li>If you spam press hotkeys, you may get stuck in a loop where the commands keep repeating, to fix this close everything and restart the application.</li>
+  <li><b>If Spotify is minimized it will continue to appear when you press a hotkey</b>. To fix this don't minimize Spotify, let the window open/maximized and click away to your other programs.</li>
+  <li>SpotifyGlobal doesn't seem to work when Spotify is "closed" to the system tray.</li>
+  <li>If you spam press hotkeys, you may get stuck in a loop where the commands keep repeating, to fix this close everything and restart  applications.</li>
   <li>Some hotkey combinations have more trouble than others when it comes to being registered, this is a common problem with the <i>keyboard</i> library.</li>
   <li>This software works only on Windows, because of the dependencies on modules pywinauto and pywin32.</li>
 </ol>
