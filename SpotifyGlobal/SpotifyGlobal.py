@@ -6,48 +6,44 @@ More at https://github.com/mavvos/SpotifyGlobal
 """
 
 import os
+import warnings
 import keyboard
-from pywinauto.application import Application, AppStartError
+import pywinauto
 from defaults import sg_quit, DEFAULT_HK, DEFAULT_COMMANDS
 from options_handler import OptionsHandler
 
 
 def main():
+    warnings.simplefilter("ignore", category=UserWarning)  # Ignore pywinauto warning
     default_options_file = "options.txt"
-    default_options_len = 10
-
+    default_options_len = 9
     options = OptionsHandler(default_options_file, default_options_len)
-
     options.set_directory()
 
     # Options file checking
     if options.file_exists():
         options.read_file()
-        user_path = options.search_file("path")
-
-        if user_path:
-            options.spotify_path = user_path
-        else:
-            if not options.incomplete_file():
-                # In case file exists, it's complete but PATH still missing
-                print("PATH NOT FOUND")
+        if options.incomplete_file():
             os.remove(options.dir)
-            options.spotify_default_path()
             options.write_default_keys(DEFAULT_HK)
     else:
-        options.spotify_default_path()
         options.write_default_keys(DEFAULT_HK)
 
-    # Open Spotify
+    # Connect to Spotify
     try:
-        # We can't use pywinauto Application.connect
-        # because Spotify executable name changes with every song.
-        sp = Application().start(rf"{options.spotify_path}")
-        sp = sp["Chrome_Widget_Win0"]  # Default Spotify window name
-    except AppStartError:
-        sg_quit(
-            "Couldn't open Spotify. PATH typed is wrong or options.txt has the wrong PATH.\n\nTry again"
-        )
+        app = pywinauto.Application().connect(title="Spotify")
+    except pywinauto.findwindows.ElementNotFoundError:
+        # If no perfect match, cast a bigger net and look for a generic name.
+        # While this usually works, if Spotify is not open this might unintentionally
+        # connect to the wrong window. This also seems to never raise exceptions.
+        app = pywinauto.Application().connect(best_match="Chrome_Widget_Win0")
+        app_windows = app.windows()
+    finally:
+        sp = app["Chrome_Widget_Win0"]
+
+    # Catch connections to the wrong window
+    if "Spotify" not in str(app_windows) and "app_windows" in locals():
+        sg_quit("Spotify not found, make sure it's open and maximized then try again.")
 
     # Get Hotkeys
     hk = options.read_set_keys(DEFAULT_HK)

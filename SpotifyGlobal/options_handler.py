@@ -13,9 +13,8 @@ class OptionsHandler:
         """
         self.file = file
         self.lines = lines
-        self.dir = ""
-        self.file_content = ""
-        self.spotify_path = ""
+        self.dir = None
+        self.file_content = None
 
     def set_directory(self) -> None:
         """Set file directory based on parents directory."""
@@ -70,17 +69,6 @@ class OptionsHandler:
             )
             return None
 
-    def spotify_default_path(self) -> None:
-        """Check if Spotify exists in default directory,
-        if yes set spotify_path to it.
-        """
-        user_directory = Path.home()
-        default_path = user_directory.joinpath(
-            "AppData", "Roaming", "Spotify", "Spotify.exe"
-        )
-        if default_path.exists():
-            self.spotify_path = default_path
-
     def running_as_exe(self) -> bool:
         """Returns True if script is being run as an executable"""
         if getattr(sys, "frozen", False):
@@ -88,20 +76,12 @@ class OptionsHandler:
         return False
 
     def write_default_keys(self, hk_dict: dict) -> None:
-        """Creates options file based on default configurations (by argument dictionary).
-
-        'Path=' is set as current spotify_path.
-        """
-        try:
-            with open(self.dir, "a") as file:
-                file.write(f"path={self.spotify_path}\n")
-                for key in hk_dict:
-                    default = f"{key}={hk_dict[key]}\n"
-                    file.write(default)
-            self.read_file()  # In case file does not exist, read file to get new default hotkeys
-        except AttributeError:
-            # In case Spotify default_path does not exist, input user for path
-            self.spotify_path = self.input_path()
+        """Creates options file based on default configurations (by argument dictionary)."""
+        with open(self.dir, "a") as file:
+            for key in hk_dict:
+                default = f"{key}={hk_dict[key]}\n"
+                file.write(default)
+        self.read_file()  # In case file does not exist, read file to get new default hotkeys
 
     def read_set_keys(self, hk_dict: dict) -> dict:
         """Read set configurations values from file_content based in given dictionary keys.
@@ -118,12 +98,3 @@ class OptionsHandler:
             if value is not None:
                 hk[config] = value
         return hk
-
-    def input_path(self) -> str:
-        """Manually input user for Spotify path, returns string input"""
-        print("Spotify not found.")
-        return input(
-            "Type your Spotify path\n\
-Paths should look something like:\n\
-C:\\Users\\YOU\\AppData\\Roaming\\Spotify\\Spotify.exe\n\n"
-        )
