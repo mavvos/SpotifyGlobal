@@ -12,14 +12,11 @@
 
 #
 ### How does this work?
-SpotifyGlobal listens for hotkeys with the <i><b>keyboard</b></i> module then sends them to <i><b>pywinauto</b></i> who will send the equivalent hotkey command to the Spotify application.
+SpotifyGlobal is a python script that works listening for hotkeys with the <i><b>keyboard</b></i> module then sending them to <i><b>pywinauto</b></i> who will send the equivalent hotkey command to the Spotify application.
 Because commands are sent <b>only</b> to the Spotify window, this script doesn't affect any  other audio sources! And because it doesn't use Spotify API, it's functional for all Spotify accounts (free & premium).
 
 ### Why does this exist?
-While Spotify has built-in hotkeys, they don't work out of focus (at least not for me), this is what I was looking to fix with SpotifyGlobal. Sometimes you just don't have time to alt tab or open game bar but still want to interact with the Spotify desktop application. I tried really hard to find a global hotkey solution for a while, but all of them had some sort of problem, so the natural conclusion was for me to make a script that works for my needs, and I'm sharing it in hopes it can help you too!
-
-### How do I make SpotifyGlobal run on startup?
-If you want the script to start on Windows boot, follow [this tutorial](https://support.microsoft.com/en-us/windows/add-an-app-to-run-automatically-at-startup-in-windows-10-150da165-dcd9-7230-517b-cf3c295d89dd). Make you sure you add a shortcut to the script, not the script itself.
+While Spotify has built-in hotkeys, they don't work out of focus, this is what I was looking to fix with SpotifyGlobal. Sometimes you just don't have time to alt tab or open game bar but still want to interact with the Spotify desktop application. I tried really hard to find a global hotkey solution for a while, but all of them had some sort of problem, so the natural conclusion was for me to make a script that works for my needs, and I'm sharing in hopes it can help you too!
 
 #
 <h3>🎁 Download</h3>
@@ -42,8 +39,10 @@ Inside the SpotifyGlobal directory run SpotifyGlobal.py
 #
 <h3>🤔 How To Use </h3>
 When you open SpotifyGlobal it connects to your open Spotify, because of this <b>Spotify must be open and active/maximized when you start SpotifyGlobal</b>.
-
-After that just let Spotify active/maximized and you are free to click away to other programs.
+<br><br>
+After connection, let Spotify active/maximized and feel free to click away to other programs, now controlling Spotify with your new global hotkeys!
+<br><br>
+The first time you open SpotifyGlobal it creates an options.txt file that contains all your hotkeys.
 
 #
 <h3>🎹 Default Controls</h3>
