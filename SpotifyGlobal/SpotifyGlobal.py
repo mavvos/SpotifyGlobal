@@ -37,12 +37,11 @@ def main():
         # While this usually works, if Spotify is not open this might unintentionally
         # connect to the wrong window. This also seems to never raise exceptions.
         app = pywinauto.Application().connect(best_match="Chrome_Widget_Win0")
-        app_windows = app.windows()
     finally:
         sp = app["Chrome_Widget_Win0"]
 
     # Catch connections to the wrong window
-    if "Spotify" not in str(app_windows) and "app_windows" in locals():
+    if "Spotify" not in str(app.windows()):
         sg_quit("Spotify not found, make sure it's open and maximized then try again.")
 
     # Get Hotkeys
