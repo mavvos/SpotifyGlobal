@@ -24,7 +24,7 @@ Click <a href="https://github.com/mavvos/SpotifyGlobal/releases/latest">here</a>
 
 On the download page there's an executable version (.exe), download it, double click and you're good to go!
 
-If you are trying to run the Python script, you'll need Python version 3.6 or newer, then clone this repository:
+If you are trying to run the Python script manully, you'll need Python version 3.6 or newer, then clone this repository:
 ```
 git clone https://github.com/mavvos/SpotifyGlobal.git
 ```
@@ -34,7 +34,7 @@ Make sure you have the required modules installed. Inside the cloned directory r
 pip install -r requirements.txt
 ```
 
-Inside the SpotifyGlobal directory run SpotifyGlobal.py
+Then inside the SpotifyGlobal directory run SpotifyGlobal.py
 
 #
 <h3>🤔 How To Use </h3>
@@ -81,7 +81,8 @@ This way, to send the Volume Down command to Spotify, you would have to simultan
 <ol>
   <li><b>If Spotify is minimized it will continue to appear when you press a hotkey</b>. To fix this don't minimize Spotify, let the window open/maximized and click away to your other programs.</li>
   <li>SpotifyGlobal doesn't seem to work when Spotify is "closed" to the system tray.</li>
+  <li>SpotifyGlobal might not work if you have any other executable that has 'Spotify' in their name (for example, the github page for this project open in your browser), make sure Spotify is the only program using the Spotify name.</li>
   <li>If you spam press hotkeys, you may get stuck in a loop where the commands keep repeating, to fix this close everything and restart  applications.</li>
-  <li>Some hotkey combinations have more trouble than others when it comes to being registered, this is a common problem with the <i>keyboard</i> library.</li>
-  <li>This software works only on Windows, because of the dependencies on modules pywinauto and pywin32.</li>
+  <li>Some keys and hotkey combinations have more trouble than others when it comes to being registered, this is a common problem with the <i>keyboard</i> library.</li>
+  <li>This software <i>should</i> work only on Windows, because of the dependencies on modules pywinauto and pywin32.</li>
 </ol>

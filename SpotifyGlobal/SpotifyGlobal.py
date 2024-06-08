@@ -42,7 +42,9 @@ def main():
 
     # Catch connections to the wrong window
     if "Spotify" not in str(app.windows()):
-        sg_quit("Spotify not found, make sure it's open and maximized then try again.")
+        sg_quit(
+            "Spotify not found, try closing/opening, pressing pause/play, then try again."
+        )
 
     # Get Hotkeys
     hk = options.read_set_keys(DEFAULT_HK)
