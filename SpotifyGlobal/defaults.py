@@ -30,7 +30,7 @@ DEFAULT_COMMANDS = [
 
 
 def sg_quit(message: str) -> None:
-    """Display given message, take set amount of time then quit by sys.exit(1)"""
+    """Print argument message, sleep for set amount of time then quit by sys.exit(1)."""
     print(message)
     time.sleep(4)
     sys.exit(1)

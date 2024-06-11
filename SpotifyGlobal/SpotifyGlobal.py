@@ -20,7 +20,7 @@ def main():
     options = OptionsHandler(default_options_file, default_options_len)
     options.set_directory()
 
-    # Options file checking
+    # Options File
     if options.file_exists():
         options.read_file()
         if options.incomplete_file():
@@ -33,9 +33,9 @@ def main():
     try:
         app = pywinauto.Application().connect(title="Spotify")
     except pywinauto.findwindows.ElementNotFoundError:
-        # If no perfect match, cast a bigger net and look for a generic name.
-        # While this usually works, if Spotify is not open this might unintentionally
-        # connect to the wrong window. This also seems to never raise exceptions.
+        # If we can't find Spotify's exact window, look for a generic name.
+        # While this usually works, it can unintentionally connect to the wrong window.
+        # Because it always connects to a window, it also never raises exceptions.
         app = pywinauto.Application().connect(best_match="Chrome_Widget_Win0")
     finally:
         sp = app["Chrome_Widget_Win0"]
@@ -43,7 +43,7 @@ def main():
     # Catch connections to the wrong window
     if "Spotify" not in str(app.windows()):
         sg_quit(
-            "Spotify not found, try closing/opening, pressing pause/play, then try again."
+            "Spotify not found, try closing/opening, press pause/play, then try again."
         )
 
     # Get Hotkeys
@@ -51,7 +51,7 @@ def main():
     if not hk:
         sg_quit("Couldn't set or find hotkeys.\nPlease try again.")
 
-    # Setup Hotkeys
+    # Set Hotkeys
     for key, cmd in zip(hk, DEFAULT_COMMANDS):
         keyboard.add_hotkey(hk[key], lambda cmd=cmd: sp.send_keystrokes(cmd))
     print(f"SpotifyGlobal is up and running.\n    {hk['Quit']} to quit.")
