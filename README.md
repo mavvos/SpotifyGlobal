@@ -3,7 +3,7 @@
   
 [![download](https://img.shields.io/badge/Download-Latest-green)](https://github.com/mavvos/SpotifyGlobal/releases/latest)
 [![license](https://img.shields.io/badge/License-MIT-red)](https://github.com/mavvos/SpotifyGlobal/blob/main/LICENSE)
-[![python](https://img.shields.io/badge/Python-3.6-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
+[![python](https://img.shields.io/badge/Python-3.10-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 
   Control Spotify from anywhere with customizable Global Hotkeys!\
   No need for the window to be in focus, working for all Spotify accounts (free & premium)!
@@ -24,7 +24,7 @@ Click <a href="https://github.com/mavvos/SpotifyGlobal/releases/latest">here</a>
 
 On the download page there's an executable version (.exe), download it, double click and you're good to go!
 
-If you are trying to run the Python script manully, you'll need Python version 3.6 or newer, then clone this repository:
+If you are trying to run the Python script manully, you'll need Python version 3.10 or newer, then clone this repository:
 ```
 git clone https://github.com/mavvos/SpotifyGlobal.git
 ```
