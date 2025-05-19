@@ -13,6 +13,24 @@ from defaults import sg_quit, DEFAULT_HK, DEFAULT_COMMANDS
 from options_handler import OptionsHandler
 
 
+def connect_spotify():
+    attempts = [
+        {"title": "Spotify"},
+        {"title_re": ".*spotify.exe.*"},
+        {"best_match": "Chrome_WidgetWin_0"},
+    ]
+
+    # Connect to Spotify
+    for params in attempts:
+        try:
+            app = pywinauto.Application().connect(**params)
+            print(f"Connect successfully: params={params} {app}")
+            return app
+        except Exception as e:
+            print(f"Other errors: {e}")
+    raise RuntimeError("Can't connect to Spotify window")
+
+
 def main():
     warnings.simplefilter("ignore", category=UserWarning)  # Ignore pywinauto warning
     default_options_file = "options.txt"
@@ -30,18 +48,11 @@ def main():
         options.write_default_keys(DEFAULT_HK)
 
     # Connect to Spotify
-    try:
-        app = pywinauto.Application().connect(title="Spotify")
-    except pywinauto.findwindows.ElementNotFoundError:
-        # If we can't find Spotify's exact window, look for a generic name.
-        # While this usually works, it can unintentionally connect to the wrong window.
-        # Because it always connects to a window, it also never raises exceptions.
-        app = pywinauto.Application().connect(best_match="Chrome_Widget_Win0")
-    finally:
-        sp = app["Chrome_Widget_Win0"]
+    app = connect_spotify()
+    sp = app["Chrome_Widget_Win0"]
 
     # Catch connections to the wrong window
-    if "Spotify" not in str(app.windows()):
+    if "spotify" not in str(app.windows()).lower():
         sg_quit(
             "Spotify not found, try closing/opening, press pause/play, then try again."
         )
