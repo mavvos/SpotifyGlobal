@@ -18,8 +18,8 @@
 <ul>
   <li>✅ Control: Control playback from anywhere on your desktop.
   <li>✅ Customizable: Easily change hotkeys by editing a simple text file.
-  <li>✅ Universal: Works with both Free and Premium Spotify accounts because it doesn't rely on the official API.
   <li>✅ Lightweight: Runs as a simple script in the background.
+  <li>✅ Universal: Works with both Free and Premium Spotify accounts because it doesn't rely on the official API.
 </ul>
 
 #
@@ -62,7 +62,7 @@ Using Spotify Global is straightforward, but might require a specific startup se
 
 3. Once connected, you can click away to other programs. Spotify will remain open in the background (but not minimized) and your global hotkeys will work!
 
-On the first launch, a file named <b>options.txt</b> will be created in the same directory. This is where you customize your hotkeys.
+On the first launch, a file named <b>config.ini</b> will be created in the same directory. This is where you customize your hotkeys.
 
 #
 <h3>⌨ Customizing Hotkeys</h3>
@@ -79,20 +79,20 @@ Forward 5 seconds | shift+3
 Like / Dislike | shift+7
 Quit | shift+9
 
-To change a hotkey, open <b>options.txt</b> and edit the key combination after the = sign.
+To change a hotkey, open <b>config.ini</b> and edit the key combination after the : sign.
 
 For example, to change the "Volume Down" command from the default <b><i>SHIFT+2</i></b> to <b><i>ALT+SHIFT+P</i></b>, you would edit the file like this:
 
 <h3>Before:</h3>
 
 ```
-VolDown=shift+2
+VolDown: shift+2
 ```
 
 <h3>After:</h3>
 
 ```
-VolDown=alt+shift+p
+VolDown: alt+shift+p
 ```
 
 > Note: We use the <i>keyboard</i> library for our hotkeys. Most keys are written in plain English. For a full list of valid key names, please refer to the library's list of <a href="https://github.com/boppreh/keyboard/blob/master/keyboard/_canonical_names.py?h=1">canonical names</a>, for an easy way to get your desired key, see <a href="https://github.com/boppreh/keyboard/issues/589#issuecomment-1399599739">here</a>.
