@@ -1,46 +1,52 @@
 """
-             SpotifyGlobal
 Add (customizable) global hotkeys to Spotify!
-
-Source at https://github.com/mavvos/SpotifyGlobal
+https://github.com/mavvos/SpotifyGlobal
 """
 
 import configparser
 import keyboard
-import pywinauto
+import psutil
+from pywinauto import Application, findwindows
 
 
 def main():
+    # Read config file
     config = configparser.ConfigParser()
-    config.read("config.ini")
-
-    # Connect to Spotify
-    try:
-        app = pywinauto.Application().connect(title="Spotify")
-    except pywinauto.findwindows.ElementNotFoundError:
-        # If we can't find Spotify's exact window, look for a generic name.
-        # While this usually works, it can unintentionally connect to the wrong window.
-        # Because it always connects to a window, it also never raises exceptions.
-        app = pywinauto.Application().connect(best_match="Chrome_Widget_Win0")
-    finally:
-        sp = app["Chrome_Widget_Win0"]
-
-    # Catch connections to the wrong window
-    if "spotify" not in str(app.windows()).lower():
-        input("Connected to the wrong window. Press Enter to quit...")
+    if not config.read("config.ini"):
+        input("No config.ini file found.\nEnter to quit...")
         return 1
 
-    # Get Hotkeys
+    # Get Spotify window
+    sp = get_spotify_app()
+    if not sp:
+        input("Spotify not found, make sure it's open and try again.\nEnter to quit...")
+        return 1
+
+    # Get hotkeys
     hotkeys = config["Hotkeys"]
     spotify_commands = config["Spotify Commands"]
 
-    # Set Hotkeys
+    # Set hotkeys
     for cmd in spotify_commands:
         keyboard.add_hotkey(
             hotkeys[cmd], lambda cmd=cmd: sp.send_keystrokes(spotify_commands[cmd])
         )
     print(f"SpotifyGlobal is up and running.\n    {hotkeys['Quit']} to quit.")
     keyboard.wait(hotkey=hotkeys["Quit"])
+
+
+def get_spotify_app():
+    for process in psutil.process_iter():
+        if "spotify.exe" in process.name().lower():
+            try:
+                # We iterate to get rid of helper processes with the same name.
+                # Only the main Spotify window returns find_window()
+                spotify = findwindows.find_window(process=process.pid)
+                app = Application(backend="win32").connect(handle=spotify)
+                return app.top_window()
+            except Exception as e:
+                pass
+    return None
 
 
 if __name__ == "__main__":
