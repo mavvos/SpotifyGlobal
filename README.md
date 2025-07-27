@@ -28,7 +28,7 @@
 You can either download the pre-packaged executable for a simple setup, or run the Python script from source.
 
 <h3>💾 Simple Install</h2>
-On the <a href="https://github.com/mavvos/SpotifyGlobal/releases/latest">releases page</a>, download the SpotifyGlobal.exe file from the latest release, run the executable and you're good to go!
+On the <a href="https://github.com/mavvos/SpotifyGlobal/releases/latest">releases page</a>, download <i>SpotifyGlobal.exe</i> from the latest release, run the executable and you're good to go!
 
 <h3>🐍 Manual Setup</h3>
 If you prefer to run the script directly, you'll need Python 3.6 or newer.
@@ -52,17 +52,13 @@ python SpotifyGlobal.py
 #
 <h3>🤔 How To Use </h3>
 
-Using Spotify Global is straightforward, but might require a specific startup sequence for it to connect properly.
+1. Make sure that <b>Spotify is open</b>.
 
-<b>Spotify must be open and active when you launch the script:</b>
-
-1. Open the Spotify desktop application. Make sure it's visible and not minimized.
-
-2. Run Spotify Global. A connection will be established.
+2. Then run Spotify Global, a connection will be established.
 
 3. Once connected, you can click away to other programs. Spotify will remain open in the background (but not minimized) and your global hotkeys will work!
 
-On the first launch, a file named <b>config.ini</b> will be created in the same directory. This is where you customize your hotkeys.
+You <b>should</b> have a <i>config.ini</i> file in the same directory as the executable/script. This is where you customize your hotkeys.
 
 #
 <h3>⌨ Customizing Hotkeys</h3>
@@ -100,9 +96,8 @@ VolDown: alt+shift+p
 #
 <h3>🐜 Known Issues 🦟</h3>
 <ol>
-  <li><b>If Spotify is minimized, it will pop up every time a hotkey is used.</b> Workaround: Keep the Spotify window open and active (not minimized) in the background before switching to other applications.
-  <li>The script may fail if another running application has "Spotify" in its window title (e.g., a web browser with this repository open). Ensure that the Spotify desktop client is the only application with that name.
+  <li><b>If Spotify is minimized, it will pop up every time a hotkey is used. #5</b> Workaround: Keep the Spotify window open and active (not minimized) in the background before switching to other applications.
   <li>Spamming hotkeys quickly can sometimes cause commands to get stuck in a loop. Workaround: Close and restart both Spotify and Spotify Global.
-  <li>Some keys and hotkey combinations have more trouble than others when it comes to being registered, this is a common problem with <i>keyboard</i>.
+  <li>Some keys and hotkey combinations have more trouble than others when it comes to being registered, this is a common problem with <i>keyboard</i>. #4
   <li>NumPad keys may be interpreted as arrow keys (e.g., 4 is 'left', 6 is 'right'). This is a known issue with the <i>keyboard</i> library, see <a href="https://github.com/boppreh/keyboard/issues/618">Issue #618</a>.
 </ol>
