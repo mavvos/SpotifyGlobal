@@ -28,7 +28,7 @@
 You can either download the pre-packaged executable for a simple setup, or run the Python script from source.
 
 <h3>💾 Simple Install</h2>
-On the <a href="https://github.com/mavvos/SpotifyGlobal/releases/latest">releases page</a>, download <i>SpotifyGlobal.exe</i> from the latest release, run the executable and you're good to go!
+On the <a href="https://github.com/mavvos/SpotifyGlobal/releases/latest">releases page</a>, download <i>SpotifyGlobal.zip</i> from the latest release, extract it, run the executable and you're good to go!
 
 <h3>🐍 Manual Setup</h3>
 If you prefer to run the script directly, you'll need Python 3.6 or newer.
